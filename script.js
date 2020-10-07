@@ -1,7 +1,9 @@
 $(document).ready(()=>{
     $("input[type=checkbox]").removeAttr("checked");
     $(".projects").tabs();
+    /* To Add Task */
     $(".btnAddTask").button().click(function(){
+        /* Dialog box will open on click of Add Task button */
         $(".task-dialog").dialog({width : 400, resizable : false, modal : true,
             buttons:{
                 "Add New Task" :function() {
@@ -34,11 +36,14 @@ $(document).ready(()=>{
         $(id).remove();
         $(".projects").tabs("refresh");
     })
+    /* To Add Projects */
     $(".btn").button().click(function(){
+        /* Dialog box will open on click of Add Project button */
         $(".project-dialog").dialog({width : 400, resizable : false, modal : true,
              buttons : {
             "Add New Project" : function(){
                 var projectName = $(".new-project").val();
+                /* To create ID without spacing */
                 var replaceName = projectName.split(" ").join("_");
                 $("<li><a href='#"+replaceName+"'>"+projectName+"</a><span class='ui-icon ui-icon-close'></span></li>").appendTo(".tabs");
                 $(".projects").tabs("refresh");

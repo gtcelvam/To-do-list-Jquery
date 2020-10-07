@@ -1,0 +1,9 @@
+Widgets used 
+Sortable
+Draggable
+tabs
+buttons
+
+Events used
+closest
+Slideup
