@@ -45,13 +45,29 @@ $(document).ready(()=>{
                 var projectName = $(".new-project").val();
                 /* To create ID without spacing */
                 var replaceName = projectName.split(" ").join("_");
-                $("<li><a href='#"+replaceName+"'>"+projectName+"</a><span class='ui-icon ui-icon-close'></span></li>").appendTo(".tabs");
-                $(".projects").tabs("refresh");
-                var tabcount = $(".projects .ui-tabs-nav li").length;
-                $(".projects").tabs("option","active", tabcount-1); 
-                $(".new-project").val("");
-                $(this).dialog("close");
-                $("<ol id='"+replaceName+"'></ol>").appendTo(".projects").sortable(); 
+                if(localStorage.getItem("Task")==null){
+                    localStorage.setItem("Task","[]");
+                }
+                var taskvalues = {
+                    name : projectName,
+                    id : replaceName
+                }
+                var oldTask = JSON.parse(localStorage.getItem("Task"))
+                oldTask.push(taskvalues);
+                localStorage.setItem("Task", JSON.stringify(oldTask));
+                console.log(oldTask);
+                var listValue = JSON.parse(localStorage.getItem("Task"))
+                for(var i=0; i<listValue.length;i++){
+                    if(listValue.length>0){
+                        $("<li><a href='#"+listValue[i].id+"'>"+listValue[i].name+"</a><span class='ui-icon ui-icon-close'></span></li>").appendTo(".tabs");
+                        $(".projects").tabs("refresh");
+                        var tabcount = $(".projects .ui-tabs-nav li").length;
+                        $(".projects").tabs("option","active", tabcount-1); 
+                        $(".new-project").val("");
+                        $(this).dialog("close");
+                        $("<ol id='"+listValue[i].name+"'></ol>").appendTo(".projects").sortable(); 
+                    }
+                }
             },
             "Cancel" : function(){
                 $(".new-project").val("");
